@@ -77,7 +77,7 @@ function parseFile(filename: string): number[] {
     return pointsPerGame;
 }
 
-if (process.argv[2] === 'part1') {
+if (process.env.part === 'part1') {
     console.log(part1());
 } else {
     console.log(part2());
