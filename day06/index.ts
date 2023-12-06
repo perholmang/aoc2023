@@ -34,13 +34,28 @@ function calculateDistance(race: Race, gasTime: number): number {
     return (race.time - gasTime) * gasTime;
 }
 function waysToBeatRace(race: Race): number {
-    let waysToBeat = 0;
+    let timesNotWorking = 0;
+
+    // from start
     for (let j = 1; j < race.time; j++) {
-        if (calculateDistance(race, j) > race.distance) {
-            waysToBeat++;
+        const distance = calculateDistance(race, j);
+        if (distance <= race.distance) {
+            timesNotWorking++;
+        } else {
+            break;
         }
     }
-    return waysToBeat;
+
+    // from end
+    for (let j = race.time - 1; j > 1; j--) {
+        const distance = calculateDistance(race, j);
+        if (distance <= race.distance) {
+            timesNotWorking++;
+        } else {
+            break;
+        }
+    }
+    return race.time - timesNotWorking;
 }
 
 function part1() {
